@@ -12,9 +12,13 @@ from agent.bayesianLR import *
 from agent.bayesianLR_exploit import *
 from agent.vanillaNN import *
 from agent.dropoutNN import *
+from agent.concretedropoutNN import *
+
 from simulation.simulator import *
+
 from models.bnn import *
 from models.blr import *
+from models.concrete import *
 
 import argparse
 
@@ -45,6 +49,7 @@ if __name__ == "__main__":
     agents["bayesianLR_exploit"] = BayesianLR_exploit(x_train.shape[1]+1)
     agents["vanillaNN"] = VanillaNN(0.2)
     agents["dropoutNN"] = DropoutNN(0.2)
+    agents["concretedropoutNN"] = ConcretedropoutNN()
  
 
     parser = argparse.ArgumentParser()
@@ -74,10 +79,10 @@ if __name__ == "__main__":
 
     if args.checkpoint == "True" and os.path.exists(filename):
             with open(filename, 'rb') as handle:
-                regret,r2, x,y = pickle.load(handle)
+                regret,r2, x,y,i = pickle.load(handle)
 
     else:
-        regret, r2, x, y =  [],[], x_start, y_start
+        regret, r2, x, y,i =  [],[], x_start, y_start, 0
 
 
     if args.deep_gt == "True":
@@ -88,7 +93,7 @@ if __name__ == "__main__":
 
 
     _ = simulator().run( model, gt_model, x_sim, x, y, x_test, y_test, args.len_sim, args.n_ads_sel, args.freq,
-                  args.n_new_ads, 10,  args.exp, regret, r2)
+                  args.n_new_ads, 10,  args.exp, regret, r2,i)
 
     clicks, regret, r2_score = _
 

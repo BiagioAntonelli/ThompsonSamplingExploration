@@ -33,7 +33,7 @@ class VanillaNN(nn.Module):
         x = Variable(torch.from_numpy(np.array(x).astype('float')).float())
         return torch.exp(self.eval()(x))[:, 1].data.numpy()
 
-    def train_epoch(self, X, Y, epochs=3, batch_size=64):
+    def train_epoch(self, X, Y, epochs=5, batch_size=64):
         X = torch.from_numpy(np.array(X).astype('float')).float()
         Y = torch.from_numpy(np.array(Y).astype('float')).float()
 
@@ -52,3 +52,7 @@ class VanillaNN(nn.Module):
                 loss.backward()
                 opt.step()
 
+    def reset(self):
+        self.fc1 = nn.Linear(390, 100)
+        self.fc2 = nn.Linear(100, 100)
+        self.fc3 = nn.Linear(100, 2)

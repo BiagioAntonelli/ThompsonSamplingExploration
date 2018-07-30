@@ -33,9 +33,10 @@ class BayesianNN:
         self.sigma1 = 1/np.exp(0)
         self.sigma2 = 1/np.exp(6)
         self.pi = 0.75
+        self.n_input = n_input
         self.model = MLP(n_input, self.sigma_prior, self.n_samples, self.sigma1, self.sigma2, self.pi)
 
-    def train_epoch(self,x_train,y_train,epochs=3):
+    def train_epoch(self,x_train,y_train,epochs=5):
         x_train = np.array(x_train)
         y_train = np.array(y_train)
         print(y_train.shape)
@@ -64,3 +65,7 @@ class BayesianNN:
     def sample_prediction(self,x):
         x = Variable(torch.from_numpy(np.array(x).astype('float')).float())
         return self.model(x,infer=False).data.numpy()[:, 1]
+
+
+    def reset(self):
+        self.model = MLP(self.n_input, self.sigma_prior,self.n_samples, self.sigma1, self.sigma2, self.pi)

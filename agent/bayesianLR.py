@@ -25,6 +25,10 @@ class BayesianLR:
         x_bias = np.hstack([x, np.ones([x.shape[0], 1])])
         return sigmoid(np.dot(x_bias, w_sample.T))
 
+    def reset(self):
+        D = self.D
+        self.H = np.diag(np.ones(D))
+        self.mm = np.zeros(D)
 
 def sigmoid(x):
     return 1.0/(1.0 + np.exp(-x))
