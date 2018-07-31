@@ -18,14 +18,10 @@ class simulator:
             n_new=100, seed=10, exp=0, regret=[], r2=[],start_iter = 0):
 
         clicks = []
-        regret = []
-        r2 = []
         x,y = np.array(x),np.array(y)
         self.n_adsel = n_adsel
 
         for i in range(start_iter+1, len_sim):
-
-            #model = self.model
             np.random.seed(i)
             idx = (i*n_new) % len(x_sim)
             x_new = x_sim.iloc[idx:idx+n_new, :]

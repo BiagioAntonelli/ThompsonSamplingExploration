@@ -63,7 +63,7 @@ if __name__ == "__main__":
     parser.add_argument('--deep_gt', default="False", type=str)
     parser.add_argument('--reset_train', default="False", type=str)
     parser.add_argument('--freq', default=1, type=int)
-    parser.add_argument('--checkpoint', default="False", type=str)
+    parser.add_argument('--checkpoint', default="True", type=str)
     parser.add_argument('--agent', default="bayesianNN", type=str)
     args = parser.parse_args()
 
@@ -83,7 +83,6 @@ if __name__ == "__main__":
 
     else:
         regret, r2, x, y,i =  [],[], x_start, y_start, 0
-
 
     if args.deep_gt == "True":
         gt_model = gtNN(0.2)

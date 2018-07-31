@@ -15,4 +15,4 @@
 #python run_simulation.py --exp 11 --freq 10 --n_train 100  --len_sim 2000 --n_ads_sel 100 --n_new_ads 1000 --agent bayesianLR-05
 #python run_simulation.py --exp 12 --freq 10 --n_train 100  --len_sim 2000 --n_ads_sel 100 --n_new_ads 1000 --agent bayesianLR-05 --deep_gt True
 
-python run_simulation.py --exp 13 --freq 10 --n_train 100  --len_sim 300 --n_ads_sel 100 --n_new_ads 1000 --agent bayesianNN --deep_gt True
+python run_simulation.py --exp 0 --freq 10 --n_train 100  --len_sim 300 --n_ads_sel 100 --n_new_ads 1000 --agent bayesianNN --deep_gt True
