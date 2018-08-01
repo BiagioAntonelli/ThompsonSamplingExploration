@@ -36,3 +36,6 @@ agents["logisticLR"]            - Greedy Logistic Regression
 ## Simulator
 Simulator.py acts as a controller, given a selected agent, it provides at each iteration a context, observe the action selected and generate a reward.
 
+## Data
+
+(to be added...)
