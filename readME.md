@@ -2,7 +2,7 @@
 PyTorch implementation of..
 
 ## Main
-Running a simulation:
+Running a simulation (Note: this is still not reproducible because the data acquisition part is still to be added...):
 ```
 python run_simulation.py --exp 2 --freq 10 --len_sim 2000 --n_ads_sel 100 --n_new_ads 1000 --agent dropoutNN
 ```
