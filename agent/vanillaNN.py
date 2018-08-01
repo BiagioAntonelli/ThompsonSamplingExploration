@@ -14,9 +14,9 @@ class VanillaNN(nn.Module):
 
     def __init__(self, p):
         super(VanillaNN, self).__init__()
-        self.fc1 = nn.Linear(390, 100)
-        self.fc2 = nn.Linear(100, 100)
-        self.fc3 = nn.Linear(100, 2)
+        self.fc1 = nn.Linear(390, 130)
+        self.fc2 = nn.Linear(130, 130)
+        self.fc3 = nn.Linear(130, 2)
         self.p = p
 
     def forward(self, x):

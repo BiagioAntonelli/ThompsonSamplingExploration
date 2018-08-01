@@ -13,6 +13,7 @@ from agent.bayesianLR_exploit import *
 from agent.vanillaNN import *
 from agent.dropoutNN import *
 from agent.concretedropoutNN import *
+from agent.logisticLR import *
 
 from simulation.simulator import *
 
@@ -41,17 +42,7 @@ if __name__ == "__main__":
     with open('./data/X_sim_big.pickle', 'rb') as handle:
         x_sim = pickle.load(handle)
 
-
-    agents = {}
-    agents["bayesianNN"] = BayesianNN(x_train.shape[1])
-    agents["bayesianLR-1"] = BayesianLR(x_train.shape[1]+1,1)
-    agents["bayesianLR-05"] = BayesianLR(x_train.shape[1]+1, 0.5)
-    agents["bayesianLR_exploit"] = BayesianLR_exploit(x_train.shape[1]+1)
-    agents["vanillaNN"] = VanillaNN(0.2)
-    agents["dropoutNN"] = DropoutNN(0.2)
-    agents["concretedropoutNN"] = ConcretedropoutNN()
  
-
     parser = argparse.ArgumentParser()
     parser.add_argument('--exp', default=0, type=int)
     parser.add_argument('--n_train', default=500, type=int)
@@ -66,6 +57,16 @@ if __name__ == "__main__":
     parser.add_argument('--checkpoint', default="True", type=str)
     parser.add_argument('--agent', default="bayesianNN", type=str)
     args = parser.parse_args()
+
+    agents = {}
+    agents["bayesianNN"] = BayesianNN(x_train.shape[1])
+    agents["bayesianLR-1"] = BayesianLR(x_train.shape[1]+1, 1)
+    agents["bayesianLR-05"] = BayesianLR(x_train.shape[1]+1, 0.5)
+    agents["bayesianLR_exploit"] = BayesianLR_exploit(x_train.shape[1]+1)
+    agents["vanillaNN"] = VanillaNN(args.dropout)
+    agents["dropoutNN"] = DropoutNN(args.dropout)
+    agents["concretedropoutNN"] = ConcretedropoutNN()
+    agents["logisticLR"] = LogisticLR()
 
     # Initial training data
     x_start = x_train[0:args.n_train]

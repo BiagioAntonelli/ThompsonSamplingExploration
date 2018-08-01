@@ -21,11 +21,10 @@ class simulator:
         x,y = np.array(x),np.array(y)
         self.n_adsel = n_adsel
 
-        for i in range(start_iter+1, len_sim):
+        for i in range(start_iter, len_sim):
             np.random.seed(i)
             idx = (i*n_new) % len(x_sim)
             x_new = x_sim.iloc[idx:idx+n_new, :]
-
 
             if i % updates_freq == 0:
                 model.reset()
