@@ -1,4 +1,3 @@
-# Credit: https://gist.github.com/vvanirudh/9e30b2f908e801da1bd789f4ce3e7aac
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
