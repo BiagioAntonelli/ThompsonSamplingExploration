@@ -5,7 +5,7 @@ import numpy as np
 
 class LogisticLR:
     def __init__(self):
-        self.model = LogisticRegression()
+        self.model = LogisticRegression(C=0.1)
         
 
     def train_epoch(self, x_train, y_train):

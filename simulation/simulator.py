@@ -15,7 +15,7 @@ class simulator:
         self.n_adsel = 0
 
     def run(self, model, gt_model, x_sim, x, y, x_test, y_test, len_sim=1000, n_adsel=100, updates_freq=1,
-            n_new=100, seed=10, exp=0, regret=[], r2=[],start_iter = 0):
+            n_new=100, seed=10, exp=0, regret=[], r2=[],logloss = [],start_iter = 0):
 
         clicks = []
         x,y = np.array(x),np.array(y)
@@ -29,22 +29,23 @@ class simulator:
             if i % updates_freq == 0:
                 model.reset()
                 model.train_epoch(x,y)
-                y_hat_test = model.predict(x_test)
-                ll_ts = log_loss(y_test, y_hat_test)
-                print("test logloss: ", ll_ts)
+                #y_hat_test = model.predict(x_test)
+                #ll_ts =l(y_test, y_hat_test)
+                #print("test logloss: ", ll_ts)
 
             # Generate outcomes
-            rev, n_clicks, x_batch, y_batch, p_pool,p_pool_true = self.update_simulation(model, gt_model, x_new)
+            rev, n_clicks, x_batch, y_batch, p_pool,p_pool_true, clicks_pool = self.update_simulation(model, gt_model, x_new)
             x = np.vstack([x, x_batch])
             y = np.hstack([y, y_batch])
 
             # Ground Truth
-            rev_gt, n_clicks_gt, x_batch_gt, y_batch_gt, p_pool_gt, p_pool_true_gt = self.update_simulation(gt_model, gt_model, x_new)
+            rev_gt, n_clicks_gt, x_batch_gt, y_batch_gt, p_pool_gt, p_pool_true_gt,clicks_pool_gt = self.update_simulation(gt_model, gt_model, x_new)
 
             # store outcomes
             clicks.append(n_clicks)
             regret.append(rev_gt - rev)
             r2.append(r2_score(p_pool_true, p_pool))
+            logloss.append(log_loss(clicks_pool, p_pool))
 
             # print regret
             if i % 20 == 0:
@@ -53,7 +54,7 @@ class simulator:
 
             # save checkpoints
             if i % 200 == 0:
-                _ = regret, r2, x, y, i
+                _ = regret, r2,logloss, x, y, i
                 path = "./experiments/sim_"+str(exp)
                 os.makedirs(path, exist_ok=True)
                 with open(path+"/"+str(exp)+'checkpoint.pickle', 'wb') as handle:
@@ -66,12 +67,13 @@ class simulator:
         
         # selected from model
         p_new = net.sample_prediction(X_new).squeeze()
-        _, p_new_true = self.gen_click(X_new, gt_net) # true probability of selected
+        clicks_new_true , p_new_true = self.gen_click(X_new, gt_net) # true probability of selected
         selected = np.argsort(-p_new)[:self.n_adsel]
         x_batch = np.array(X_new.iloc[selected, :])
-        clicks, p_clicks = self.gen_click(x_batch, gt_net)
+        # self.gen_click(x_batch, gt_net)
+        clicks, p_clicks = clicks_new_true[selected], p_new_true[selected]
         revenue = np.sum(p_clicks)
-        return revenue, np.sum(clicks), x_batch, np.squeeze(clicks), p_new, p_new_true
+        return revenue, np.sum(clicks), x_batch, np.squeeze(clicks), p_new, p_new_true,clicks_new_true
 
     def gen_click(self, x,gt_model):
 
