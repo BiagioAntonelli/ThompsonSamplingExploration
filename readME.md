@@ -1,5 +1,5 @@
 
-PyTorch implementation of..
+This framework allows to test several Bayesian Machine Learning models for exploration with Thompson Sampling in online advertising applications. All the models are implemented in PyTorch. 
 
 ## Main
 Running a simulation (Note: this is still not reproducible because the data acquisition part is still to be added...):
@@ -38,4 +38,4 @@ Simulator.py acts as a controller, given a selected agent, it provides at each i
 
 ## Data
 
-(to be added...)
+all the data needed can be downloaded [here](https://drive.google.com/open?id=1S_8eEUO-SlW1uXlmfFLBP2gs3xvgvquG)

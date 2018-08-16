@@ -4,7 +4,6 @@ import pandas as pd
 import pickle
 import os
 
-
 from agent.bayesianNN import *
 from agent.gtNN import *
 from agent.gtLR import *
@@ -33,8 +32,6 @@ if __name__ == "__main__":
         x_train = pickle.load(handle)
     with open('./data/w_gt_2.pickle', 'rb') as handle:
         w_gt = pickle.load(handle)
-    with open('./data/w_start.pickle', 'rb') as handle:
-        w_start = pickle.load(handle)
     with open('./data/y_test.pickle', 'rb') as handle:
         y_test = pickle.load(handle)
     with open('./data/x_test.pickle', 'rb') as handle:
@@ -59,10 +56,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     agents = {}
-    agents["bayesianNN"] = BayesianNN(x_train.shape[1])
-    agents["bayesianLR-1"] = BayesianLR(x_train.shape[1]+1, 1)
-    agents["bayesianLR-05"] = BayesianLR(x_train.shape[1]+1, 0.5)
-    agents["bayesianLR_exploit"] = BayesianLR_exploit(x_train.shape[1]+1)
+    agents["bayesianNN"] = BayesianNN(x_sim.shape[1])
+    agents["bayesianLR-1"] = BayesianLR(x_sim.shape[1]+1, 1)
+    agents["bayesianLR-05"] = BayesianLR(x_sim.shape[1]+1, 0.5)
+    agents["bayesianLR_exploit"] = BayesianLR_exploit(x_sim.shape[1]+1)
     agents["vanillaNN"] = VanillaNN(args.dropout)
     agents["dropoutNN"] = DropoutNN(args.dropout)
     agents["concretedropoutNN"] = ConcretedropoutNN()
