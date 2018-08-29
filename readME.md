@@ -19,7 +19,7 @@ python run_simulation.py --exp 2 --freq 10 --len_sim 2000 --n_ads_sel 100 --n_ne
 
 ## Agent
 
-Agent folder contains the code for each agent. Each agent as an underlying model, which given a context is able to select an action and update its internal model.
+The agent folder contains the code for each agent. Each agent has an underlying model, which given a context is able to select an action and update its internal model.
 
 ```
 agents["bayesianNN"]            - Bayesian Neural Network with Stochastic Variational Inference
@@ -34,8 +34,8 @@ agents["logisticLR"]            - Greedy Logistic Regression
 ```
 
 ## Simulator
-Simulator.py acts as a controller, given a selected agent, it provides at each iteration a context, observe the action selected and generate a reward.
+Simulator.py acts as a controller, given an agent, it provides at each iteration a context, observe the action selected and generate a reward.
 
 ## Data
 
-all the data needed can be downloaded [here](https://drive.google.com/open?id=1DEKMzuR-jlUpCDaZE4x0vtoQWgiirtR7)
+all the data needed can be downloaded [here](https://drive.google.com/open?id=1DEKMzuR-jlUpCDaZE4x0vtoQWgiirtR7) and should be put in the data folder.
