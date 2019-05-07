@@ -17,7 +17,6 @@ from sklearn.cross_validation import train_test_split
 from sklearn import preprocessing
 
 import os
-print(os.getcwd())
 
 from models.bnn import *
 
@@ -55,7 +54,6 @@ class BayesianNN:
                 loss = criterion(log_pw, log_qw, log_likelihood,n_batches, batch_size)
                 loss.backward()
                 optimizer.step()
-
 
     def predict(self,x):
         x = Variable(torch.from_numpy(np.array(x).astype('float')).float())
