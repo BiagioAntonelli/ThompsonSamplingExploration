@@ -6,8 +6,7 @@ import numpy as np
 class LogisticLR:
     def __init__(self):
         self.model = LogisticRegression(C=0.1)
-        
-
+       
     def train_epoch(self, x_train, y_train):
         x_train_bias = np.hstack([x_train, np.ones([x_train.shape[0], 1])])
         self.model.fit(x_train_bias, y_train)
